@@ -27,3 +27,14 @@ services:
       - db:database
     volumes:
       - ./config/resources:/config
+  delta:
+    image: semtech/mu-delta-service:beta-0.9
+    ports:
+      - "9980:8890"
+    volumes:
+      - ./config/delta-service:/config
+    environment:
+      CONFIGFILE: "/config/delta/config.properties"
+      SUBSCRIBERSFILE: "/config/delta/subscribers.json"
+    links:
+      - db:db
