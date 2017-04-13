@@ -32,9 +32,9 @@ services:
     ports:
       - "9980:8890"
     volumes:
-      - ./config/delta-service:/config
+      - ./config/delta:/config
     environment:
-      CONFIGFILE: "/config/delta/config.properties"
-      SUBSCRIBERSFILE: "/config/delta/subscribers.json"
+      CONFIGFILE: "/config/config.properties"
+      SUBSCRIBERSFILE: "/config/subscribers.json"
     links:
       - db:db
