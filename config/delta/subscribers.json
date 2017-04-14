@@ -1,7 +1,7 @@
 {
-  "potentials":[
+    "potentials":[
+	"http://importer/import"
   ],
     "effectives":[
-	
   ]
 }
