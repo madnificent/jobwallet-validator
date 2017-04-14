@@ -10,8 +10,13 @@ services:
     image: semtech/mu-dispatcher:1.0.1
     links:
       - resource:resource
+      - walletsite:walletsite
     volumes:
       - ./config/dispatcher:/config
+  walletsite:
+    image: kyma/docker-nginx
+    volumes:
+      - ./data/walletsite/:/var/www
   db:
     image: tenforce/virtuoso:1.0.0-virtuoso7.2.4
     environment:
