@@ -11,8 +11,16 @@ services:
     links:
       - resource:resource
       - walletsite:walletsite
+      - keydownloader:keydownloader
     volumes:
       - ./config/dispatcher:/config
+  keydownloader:
+    image: madnificent/jobwallet-keydownloader-service
+    links:
+      - db:database
+      - walletsite:walletsite
+    volumes:
+      - "./data/wallets/:/fileshare/wallets/"
   walletsite:
     image: kyma/docker-nginx
     volumes:

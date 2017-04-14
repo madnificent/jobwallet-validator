@@ -26,6 +26,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://walletsite/"
   end
 
+  match "/fetch/*path" do
+    Proxy.forward conn, path, "http://keydownloader/fetch/"
+  end
+
   match "/authorative-bodies/*path" do
     Proxy.forward conn, path, "http://resource/authorative-bodies/"
   end
