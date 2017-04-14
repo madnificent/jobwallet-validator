@@ -22,6 +22,18 @@ defmodule Dispatcher do
   #   Proxy.forward conn, path, "http://resource/themes/"
   # end
 
+  match "/authorative-bodies/*path" do
+    Proxy.forward conn, path, "http://resource/authorative-bodies/"
+  end
+
+  match "/wallets/*path" do
+    Proxy.forward conn, path, "http://resource/wallets/"
+  end
+
+  match "/pubkeys/*path" do
+    Proxy.forward conn, path, "http://resource/pubkeys/"
+  end
+
   match _ do
     send_resp( conn, 404, "Route not found.  See config/dispatcher.ex" )
   end
