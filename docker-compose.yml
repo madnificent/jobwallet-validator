@@ -10,8 +10,21 @@ services:
     image: semtech/mu-dispatcher:1.0.1
     links:
       - resource:resource
+      - walletsite:walletsite
+      - keydownloader:keydownloader
     volumes:
       - ./config/dispatcher:/config
+  keydownloader:
+    image: madnificent/jobwallet-keydownloader-service
+    links:
+      - db:database
+      - walletsite:walletsite
+    volumes:
+      - "./data/wallets/:/fileshare/wallets/"
+  walletsite:
+    image: kyma/docker-nginx
+    volumes:
+      - ./data/walletsite/:/var/www
   db:
     image: tenforce/virtuoso:1.0.0-virtuoso7.2.4
     environment:
@@ -22,7 +35,7 @@ services:
     volumes:
       - ./data/db:/data
   resource:
-    image: semtech/mu-cl-resources:1.12.1
+    image: semtech/mu-cl-resources
     links:
       - db:database
     volumes:

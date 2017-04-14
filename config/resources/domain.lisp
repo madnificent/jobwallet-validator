@@ -65,3 +65,32 @@
 ;;   :on-path "themes")
 
 ;;
+
+
+(define-resource authorative-body ()
+  :class (s-prefix "ext:AuthorativeBody")
+  :has-many `((wallet :via ,(s-prefix "ext:hasWallet")
+                      :as "wallets")
+              (pubkey :via ,(s-prefix "ext:hasPubkey")
+                      :as "pubkeys"))
+  :resource-base (s-url "http://jobwallet.info/authorative-bodies/")
+  :on-path "authorative-bodies")
+
+(define-resource wallet ()
+  :class (s-prefix "ext:JobWallet")
+  :properties `((:file :url ,(s-prefix "ext:hasFile")))
+  :has-one `((authorative-body :via ,(s-prefix "ext:hasWallet")
+                               :inverse t
+                               :as "authorative-body"))
+  :resource-base (s-url "http://jobwallet.info/wallets/")
+  :on-path "wallets")
+
+(define-resource pubkey ()
+  :class (s-prefix "ext:PublicKey")
+  :properties `((:file :url ,(s-prefix "ext:hasFile")))
+  :has-one `((authorative-body :via ,(s-prefix "ext:hasPubkey")
+                               :inverse t
+                               :as "authorative-body"))
+  :resource-base (s-url "http://jobwallet.info/pubkeys/")
+  :on-path "pubkeys")
+
