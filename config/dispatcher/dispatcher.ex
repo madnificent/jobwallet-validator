@@ -41,8 +41,8 @@ defmodule Dispatcher do
   match "/pubkeys/*path" do
     Proxy.forward conn, path, "http://resource/pubkeys/"
 
-  match "/importer/*path" do
-    Proxy.forward conn, path, "http://importer/"
+  match "/files/*path" do
+    Proxy.forward conn, path, "http://uploader/files/"
   end
 
   match _ do

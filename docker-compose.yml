@@ -12,7 +12,7 @@ services:
       - resource:resource
       - walletsite:walletsite
       - keydownloader:keydownloader
-      - importer:importer
+      - uploader:uploader
     volumes:
       - ./config/dispatcher:/config
   keydownloader:
