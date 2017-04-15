@@ -12,6 +12,7 @@ services:
       - resource:resource
       - walletsite:walletsite
       - keydownloader:keydownloader
+      - importer:importer
     volumes:
       - ./config/dispatcher:/config
   keydownloader:
@@ -51,28 +52,18 @@ services:
       SUBSCRIBERSFILE: "/config/subscribers.json"
     links:
       - db:db
+      - importer:importer
   importer:
-    # image: importer
-    image: semtech/mu-ruby-template:2.0.0-ruby2.3
+    image: flowofcontrol/jobwallet-importer
     links:
       - db:database
-    ports:
-      - "4444:80"
     volumes:
-      - ./uploads:/data/uploads
-      - /home/langens-jonathan/projects/jobwallet/jobwallet-importer:/app
-    environment:
-      RACK_ENV: "development"
+      - ./uploads:/files
   uploader:
-    image: uploader
+    image: flowofcontrol/file-uploader
     links:
       - delta:database
     ports:
       - "5555:80"
     volumes:
-      - ./uploads:/data/uploads
-    environment:
-      FILE_SERVICE_BASE_URI: "http://example.com/files/"
-      FILE_SERVICE_FILE_CLASS: "http://file-service.com/File"
-      FILE_SERVICE_FILE_NAME: "http://file.com/filename"
-      FILE_SERVICE_FILE_STATUS: "http://file.com/status"
+      - ./uploads:/files
